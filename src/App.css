@@ -1,0 +1,25 @@
+#root, body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+#root {
+  background: rgb(2,0,36);
+  background: linear-gradient(33deg, rgb(181, 140, 252) 0%, rgb(154, 98, 250) 35%, rgba(0,212,255,1) 100%);
+}
+
+#root p {
+  margin: 0;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+.login-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
