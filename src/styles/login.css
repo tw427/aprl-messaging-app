@@ -1,5 +1,26 @@
 #login {
-  width: 700px;
-  height: 300px;
+  display: flex;
+  align-items: center;
+  width: 812px;
+  height: 347px;
   background-color: white;
+  border-radius: 12px;
+}
+
+#login-image {
+  float: left;
+  width: 327px;
+  height: 100%;
+  background-color: bisque;
+  border-radius: 12px 0px 0px 12px;
+}
+
+#account-form {
+  float: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 333px;
+  margin: 0px auto;
 }
