@@ -1,18 +1,25 @@
 #login {
   display: flex;
   align-items: center;
-  width: 812px;
-  height: 347px;
+  max-width: 812px;
+  max-height: 347px;
   background-color: white;
   border-radius: 12px;
 }
 
 #login-image {
-  float: left;
-  width: 327px;
-  height: 100%;
-  background-color: bisque;
+  /* box-sizing: border-box; */
+}
+
+#login-image, #login-image img {
+  max-width: 347px;
   border-radius: 12px 0px 0px 12px;
+}
+
+#login-image img {
+  position: relative;
+  height: 348px;
+  top: 2px;
 }
 
 #account-form {
@@ -21,6 +28,6 @@
   flex-direction: column;
   justify-content: center;
 
-  width: 333px;
-  margin: 0px auto;
+  max-width: 820px;
+  margin: 40px;
 }

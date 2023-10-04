@@ -1,6 +1,6 @@
 #root, body {
-  width: 100vw;
-  height: 100vh;
+  max-width: 1920px;
+  min-height: 833px;
   margin: 0;
 }
 
@@ -14,12 +14,24 @@
 }
 
 #app {
-  height: 100%;
-  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
 }
 
 .login-prompt {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 833px) {
+  #login-image {
+    display: none;
+  }
+}
+
+@media (max-height: 420px) {
+  #login-image {
+    display: none;
+  }
 }
