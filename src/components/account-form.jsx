@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/account-form.css";
 
 const AccountForm = () => {
@@ -34,9 +35,15 @@ const AccountForm = () => {
       <div id="form-buttons">
         {!newUser && (
           <>
-            <button type="submit" id="login-btn">
+            <Link
+              id="login-btn"
+              to={"home"}
+              onClick={() => {
+                document.getElementById("root").classList.add("login-success");
+              }}
+            >
               Login
-            </button>
+            </Link>
             <a
               href="/"
               id="sign-up"
