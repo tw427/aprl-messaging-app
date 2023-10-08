@@ -39,7 +39,7 @@ const AccountForm = () => {
               id="login-btn"
               to={"home"}
               onClick={() => {
-                document.getElementById("root").classList.add("login-success");
+                console.log("Hello!");
               }}
             >
               Login

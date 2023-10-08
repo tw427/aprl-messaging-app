@@ -13,11 +13,6 @@
   );
 }
 
-#root.login-success {
-  transition: background-color 0.5s ease-out 0.25s;
-  background-color: antiquewhite;
-}
-
 #root p {
   margin: 0;
 }
