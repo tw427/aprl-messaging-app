@@ -4,7 +4,7 @@ import corgi from "../assets/cute-corgi.jpg";
 
 const LoginUI = () => {
   return (
-    <div id="login">
+    <div id="login" aria-label="login-container">
       <div id="login-image">
         <img src={corgi}></img>
       </div>

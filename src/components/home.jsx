@@ -11,7 +11,7 @@ const Home = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <Link to={"/"}>Hello World !</Link>
+        <Link to={"/"}>APR3L Messaging App</Link>
       </motion.div>
     </>
   );
