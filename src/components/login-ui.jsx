@@ -8,7 +8,7 @@ const LoginUI = () => {
       <div id="login-image">
         <img src={corgi}></img>
       </div>
-      <form id="account-form">
+      <form id="account-form" aria-label="account-form">
         <AccountForm />
       </form>
     </div>

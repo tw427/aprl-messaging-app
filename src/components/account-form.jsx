@@ -13,6 +13,7 @@ const AccountForm = () => {
         id="username"
         name="username"
         placeholder="Username"
+        aria-label="username"
       ></input>
       <label htmlFor="password"></label>
       <input
@@ -20,6 +21,7 @@ const AccountForm = () => {
         id="password"
         name="password"
         placeholder="Password"
+        aria-label="password"
       ></input>
       {newUser && (
         <>
@@ -29,6 +31,7 @@ const AccountForm = () => {
             id="confirmPassword"
             name="confirmPassword"
             placeholder="Confirm password"
+            aria-label="confirm-password"
           ></input>
         </>
       )}
@@ -41,6 +44,7 @@ const AccountForm = () => {
               onClick={() => {
                 console.log("Hello!");
               }}
+              aria-label="login-button"
             >
               Login
             </Link>
@@ -51,6 +55,7 @@ const AccountForm = () => {
                 e.preventDefault();
                 setNewUser(true);
               }}
+              aria-label="sign-up-link"
             >
               Create new account
             </a>
