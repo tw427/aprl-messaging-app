@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/account-form.css";
+import { createUser } from "../../utils/userCrud";
 
 const AccountForm = () => {
   const [newUser, setNewUser] = useState(false);
@@ -63,7 +64,15 @@ const AccountForm = () => {
         )}
         {newUser && (
           <>
-            <button id="create-account-btn">Create Account</button>
+            <button
+              id="create-account-btn"
+              type="submit"
+              onClick={(e) => {
+                createUser(e);
+              }}
+            >
+              Create Account
+            </button>
             <a
               href="/"
               id="sign-in"
