@@ -1,6 +1,7 @@
 import "../styles/login.css";
 import AccountForm from "./account-form";
 import corgi from "../assets/cute-corgi.jpg";
+import { createUser } from "../../utils/userCrud";
 
 const LoginUI = () => {
   return (
@@ -9,7 +10,7 @@ const LoginUI = () => {
         <img src={corgi}></img>
       </div>
       <form id="account-form" aria-label="account-form">
-        <AccountForm />
+        <AccountForm createUser={createUser} />
       </form>
     </div>
   );

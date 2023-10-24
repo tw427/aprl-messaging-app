@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import "../styles/account-form.css";
-import { createUser } from "../../utils/userCrud";
 
-const AccountForm = () => {
+const AccountForm = (props) => {
   const [newUser, setNewUser] = useState(false);
+  const { createUser } = props;
+
+  AccountForm.propTypes = {
+    createUser: PropTypes.func,
+  };
 
   return (
     <>
@@ -67,6 +72,7 @@ const AccountForm = () => {
             <button
               id="create-account-btn"
               type="submit"
+              data-testid="create-account"
               onClick={(e) => {
                 createUser(e);
               }}
