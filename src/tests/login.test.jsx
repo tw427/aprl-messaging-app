@@ -50,7 +50,17 @@ describe("Login Form component", () => {
 
 describe("Create Account component", () => {
   it("Creating an account successfully sends back the correct API response", async () => {
-    const createMock = vi.fn();
+    const mockResponse = () => {
+      return {
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        user: {
+          username: "Bug",
+        },
+        message: "Success! Account created.",
+      };
+    };
+    const createMock = vi.fn(mockResponse);
 
     render(
       <BrowserRouter>
@@ -58,17 +68,22 @@ describe("Create Account component", () => {
       </BrowserRouter>
     );
 
-    // Mock function works after being passed as a prop to our AccountForm component
-    // Now we need our mocked function to return specific data for our mock HTTP req
     const newAccountBtn = screen.queryByLabelText("sign-up-link");
     expect(newAccountBtn).toBeInTheDocument();
+    // Changing the screen to be populated with our Account Creation form
     await userEvent.click(newAccountBtn);
+    expect(newAccountBtn).not.toBeInTheDocument();
+
     const createBtn = screen.getByTestId("create-account");
-    screen.debug();
+    expect(createBtn).toBeInTheDocument();
 
     await userEvent.click(createBtn);
     expect(createMock).toHaveBeenCalled();
-    expect(createBtn).toBeInTheDocument();
-    expect(newAccountBtn).not.toBeInTheDocument();
+    console.log(createMock());
+    expect(createMock().token).toBe(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    );
+    expect(createMock().user.username).toBe("Bug");
+    expect(createMock().message).toBe("Success! Account created.");
   });
 });
