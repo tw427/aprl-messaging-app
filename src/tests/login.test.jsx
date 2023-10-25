@@ -33,10 +33,18 @@ describe("Login Form component", () => {
     expect(loginBtn).toBeInTheDocument();
   });
 
-  it.todo(
-    "Create new account link should render account creation form elements",
-    () => {}
-  );
+  it("Create new account link should render account creation form elements", async () => {
+    const newAccountBtn = screen.queryByLabelText("sign-up-link");
+    expect(newAccountBtn).toBeInTheDocument();
+    await userEvent.click(newAccountBtn);
+    expect(newAccountBtn).not.toBeInTheDocument();
+
+    const createBtn = screen.getByTestId("create-account");
+    expect(createBtn).toBeInTheDocument();
+
+    const confirmPassword = screen.queryByLabelText("confirm-password");
+    expect(confirmPassword).toBeInTheDocument();
+  });
 
   it.todo(
     "Login should interact with our API to check user authorization",
@@ -79,7 +87,6 @@ describe("Create Account component", () => {
 
     await userEvent.click(createBtn);
     expect(createMock).toHaveBeenCalled();
-    console.log(createMock());
     expect(createMock().token).toBe(
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
     );
