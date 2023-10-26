@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
-import AccountForm from "../components/account-form";
+import { createUser } from "../../utils/userCrud";
 
 describe("Login Form component", () => {
   beforeEach(() => {
@@ -58,39 +58,34 @@ describe("Login Form component", () => {
 
 describe("Create Account component", () => {
   it("Creating an account successfully sends back the correct API response", async () => {
-    const mockResponse = () => {
-      return {
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-        user: {
-          username: "Bug",
-        },
-        message: "Success! Account created.",
-      };
-    };
-    const createMock = vi.fn(mockResponse);
-
     render(
       <BrowserRouter>
-        <AccountForm createUser={createMock} />
+        <App />
       </BrowserRouter>
     );
 
-    const newAccountBtn = screen.queryByLabelText("sign-up-link");
-    expect(newAccountBtn).toBeInTheDocument();
-    // Changing the screen to be populated with our Account Creation form
-    await userEvent.click(newAccountBtn);
-    expect(newAccountBtn).not.toBeInTheDocument();
+    vi.spyOn(window, "fetch");
 
-    const createBtn = screen.getByTestId("create-account");
-    expect(createBtn).toBeInTheDocument();
+    window.fetch.mockResolvedValueOnce({
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      user: {
+        username: "Bug",
+      },
+      message: "Success! Account created.",
+    });
 
-    await userEvent.click(createBtn);
-    expect(createMock).toHaveBeenCalled();
-    expect(createMock().token).toBe(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+    const results = await createUser();
+
+    expect(results.user.username).toBe("Bug");
+    expect(window.fetch).toHaveBeenCalledWith(
+      "http://localhost:3001/user/signup",
+      expect.objectContaining({
+        method: "POST",
+        mode: "cors",
+        body: new URLSearchParams(),
+      })
     );
-    expect(createMock().user.username).toBe("Bug");
-    expect(createMock().message).toBe("Success! Account created.");
+    expect(window.fetch).toHaveBeenCalledTimes(1);
   });
 });

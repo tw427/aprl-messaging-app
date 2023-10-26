@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../styles/account-form.css";
+import { createUser } from "../../utils/userCrud";
 
-const AccountForm = (props) => {
+const AccountForm = () => {
   const [newUser, setNewUser] = useState(false);
-  const { createUser } = props;
 
   AccountForm.propTypes = {
     createUser: PropTypes.func,
