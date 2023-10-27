@@ -90,4 +90,23 @@ describe("Create Account component", () => {
     );
     expect(window.fetch).toHaveBeenCalledTimes(1);
   });
+
+  // Will we need an afterEach to reset mocks for this describe block?
+
+  it.todo(
+    "Creating account with duplicate username returns an error",
+    async () => {}
+  );
+  it.todo(
+    "Creating account with mismatching passwords returns an error",
+    async () => {}
+  );
+  it.todo(
+    "Successful login sends back correct data from our backend API",
+    async () => {}
+  );
+  it.todo(
+    "Failing login will return an error and status of 400 or 401",
+    async () => {}
+  );
 });
