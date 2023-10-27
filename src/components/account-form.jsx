@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../styles/account-form.css";
 import { createUser } from "../../utils/userCrud";
@@ -10,6 +9,14 @@ const AccountForm = () => {
   AccountForm.propTypes = {
     createUser: PropTypes.func,
   };
+
+  function clearForms() {
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+
+    username.value = "";
+    password.value = "";
+  }
 
   return (
     <>
@@ -44,7 +51,7 @@ const AccountForm = () => {
       <div id="form-buttons">
         {!newUser && (
           <>
-            <Link
+            <a
               id="login-btn"
               to={"home"}
               onClick={() => {
@@ -53,7 +60,7 @@ const AccountForm = () => {
               aria-label="login-button"
             >
               Login
-            </Link>
+            </a>
             <a
               href="/"
               id="sign-up"
@@ -73,8 +80,16 @@ const AccountForm = () => {
               id="create-account-btn"
               type="submit"
               data-testid="create-account"
-              onClick={(e) => {
-                createUser(e);
+              onClick={async (e) => {
+                const res = await createUser(e);
+                if (res.status === 200) {
+                  setNewUser(false);
+                  clearForms();
+                }
+
+                if (res.status !== 200) {
+                  console.log("oops something went wrong!");
+                }
               }}
             >
               Create Account

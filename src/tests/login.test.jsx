@@ -1,9 +1,11 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
 import { createUser } from "../../utils/userCrud";
+
+afterAll(() => vi.resetAllMocks());
 
 describe("Login Form component", () => {
   beforeEach(() => {
