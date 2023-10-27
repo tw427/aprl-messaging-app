@@ -10,6 +10,30 @@
   border-radius: 6px;
 }
 
+#account-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  max-width: 820px;
+  margin: 40px;
+}
+
+#account-form-status {
+  margin: 0 auto;
+  margin-bottom: 24px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.account-success {
+  color: rgba(69, 255, 52, 0.8)
+}
+
+.account-fail {
+  color: rgba(255, 52, 52, 0.8)
+}
+
 #account-form input:focus {
   outline: none;
 }

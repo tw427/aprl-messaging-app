@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "../styles/account-form.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,29 @@ import { createUser, login } from "../../utils/userCrud";
 
 const AccountForm = () => {
   const [newUser, setNewUser] = useState(false);
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
+
+  AccountForm.propTypes = {
+    createUser: PropTypes.func,
+  };
+
+  useEffect(() => {
+    function handleStatus(result) {
+      const statusEl = document.getElementById("account-form-status");
+      if (result === 200) {
+        statusEl.setAttribute("class", "");
+        statusEl.classList.add("account-success");
+      } else if (result !== 200) {
+        statusEl.classList.add("account-fail");
+      } else {
+        console.log(status);
+      }
+    }
+    if (status) {
+      handleStatus(status.status);
+    }
+  }, [status]);
 
   function delayRedirect(to, status) {
     if (status !== 200) {
@@ -15,10 +37,6 @@ const AccountForm = () => {
       navigate(to);
     }
   }
-
-  AccountForm.propTypes = {
-    createUser: PropTypes.func,
-  };
 
   function clearForms() {
     const username = document.getElementById("username");
@@ -30,6 +48,7 @@ const AccountForm = () => {
 
   return (
     <>
+      {status.message && <span id="account-form-status">{status.message}</span>}
       <label htmlFor="username"></label>
       <input
         type="text"
@@ -81,6 +100,8 @@ const AccountForm = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setNewUser(true);
+                clearForms();
+                setStatus("");
               }}
               aria-label="sign-up-link"
             >
@@ -97,12 +118,15 @@ const AccountForm = () => {
               onClick={async (e) => {
                 const res = await createUser(e);
                 if (res.status === 200) {
+                  const message = await res.json();
                   setNewUser(false);
                   clearForms();
+                  setStatus({ message: message.message, status: res.status });
                 }
 
                 if (res.status !== 200) {
-                  console.log("oops something went wrong!");
+                  const message = await res.json();
+                  setStatus({ message: message.message, status: res.status });
                 }
               }}
             >
@@ -114,6 +138,8 @@ const AccountForm = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setNewUser(false);
+                clearForms();
+                setStatus("");
               }}
             >
               Sign in

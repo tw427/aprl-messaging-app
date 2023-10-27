@@ -30,12 +30,3 @@ main {
   height: 348px;
   top: 2px;
 }
-
-#account-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  max-width: 820px;
-  margin: 40px;
-}
