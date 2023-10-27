@@ -66,7 +66,7 @@ const AccountForm = () => {
               to={"home"}
               onClick={async (e) => {
                 e.preventDefault();
-                const res = await login();
+                const res = await login(e);
                 delayRedirect("/home", res.status);
                 console.log(res.status);
                 console.log(await res.json());

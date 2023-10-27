@@ -94,8 +94,10 @@ describe("Fetch API", () => {
     window.fetch.mockResolvedValueOnce({
       user: {
         username: "Bug",
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+        password:
+          "$2a$10$vakGt7dsJr4pnDS7D3181OOx5AHEbEvQPENA7WM3/cjSK2NfaUX1K",
+        _id: "653b5e8e4a96c8046bede878",
+        _v: 0,
       },
       token:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
