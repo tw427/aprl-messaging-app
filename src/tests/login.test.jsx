@@ -3,11 +3,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import App from "../App";
-import { createUser } from "../../utils/userCrud";
+import { createUser, login } from "../../utils/userCrud";
 
 afterAll(() => vi.resetAllMocks());
 
-describe("Login Form component", () => {
+describe("UI of Login Form component", () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
@@ -48,18 +48,13 @@ describe("Login Form component", () => {
     expect(confirmPassword).toBeInTheDocument();
   });
 
-  it.todo(
-    "Login should interact with our API to check user authorization",
-    () => {}
-  );
-
   it.todo("Login success should load Home component", () => {});
 
   it.todo("Login failure should prevent authorization into Home", () => {});
 });
 
-describe("Create Account component", () => {
-  it("Creating an account successfully sends back the correct API response", async () => {
+describe("Fetch API", () => {
+  beforeEach(() => {
     render(
       <BrowserRouter>
         <App />
@@ -67,7 +62,9 @@ describe("Create Account component", () => {
     );
 
     vi.spyOn(window, "fetch");
+  });
 
+  it("Creating an account successfully sends back the correct API response", async () => {
     window.fetch.mockResolvedValueOnce({
       token:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
@@ -93,20 +90,27 @@ describe("Create Account component", () => {
 
   // Will we need an afterEach to reset mocks for this describe block?
 
-  it.todo(
-    "Creating account with duplicate username returns an error",
-    async () => {}
-  );
-  it.todo(
-    "Creating account with mismatching passwords returns an error",
-    async () => {}
-  );
-  it.todo(
-    "Successful login sends back correct data from our backend API",
-    async () => {}
-  );
-  it.todo(
-    "Failing login will return an error and status of 400 or 401",
-    async () => {}
-  );
+  it("Successful login sends back correct data from our backend API", async () => {
+    window.fetch.mockResolvedValueOnce({
+      user: {
+        username: "Bug",
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      },
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    });
+    const results = await login();
+
+    expect(results.user.username).toBe("Bug");
+    expect(window.fetch).toHaveBeenCalledTimes(1);
+    expect(window.fetch).toHaveBeenCalledWith(
+      "http://localhost:3001/user/login",
+      expect.objectContaining({
+        method: "POST",
+        mode: "cors",
+        body: new URLSearchParams(),
+      })
+    );
+  });
 });

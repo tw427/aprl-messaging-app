@@ -13,10 +13,6 @@ export async function createUser(e) {
   return await res;
 }
 
-// Depending on if the login fetch is successful
-// if Successful we will reroute our users into the Home component
-// if Fail we will not reroute our user, and instead throw back an error message
-
 export async function login(e) {
   if (e) {
     e.preventDefault();

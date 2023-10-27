@@ -1,10 +1,20 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/account-form.css";
-import { createUser } from "../../utils/userCrud";
+import { Link, useNavigate } from "react-router-dom";
+import { createUser, login } from "../../utils/userCrud";
 
 const AccountForm = () => {
   const [newUser, setNewUser] = useState(false);
+  const navigate = useNavigate();
+
+  function delayRedirect(to, status) {
+    if (status !== 200) {
+      console.log("HELLO");
+    } else {
+      navigate(to);
+    }
+  }
 
   AccountForm.propTypes = {
     createUser: PropTypes.func,
@@ -51,16 +61,20 @@ const AccountForm = () => {
       <div id="form-buttons">
         {!newUser && (
           <>
-            <a
+            <Link
               id="login-btn"
               to={"home"}
-              onClick={() => {
-                console.log("Hello!");
+              onClick={async (e) => {
+                e.preventDefault();
+                const res = await login();
+                delayRedirect("/home", res.status);
+                console.log(res.status);
+                console.log(await res.json());
               }}
               aria-label="login-button"
             >
               Login
-            </a>
+            </Link>
             <a
               href="/"
               id="sign-up"
