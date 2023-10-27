@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/userContext";
 import PropTypes from "prop-types";
 import "../styles/account-form.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, login } from "../../utils/userCrud";
 
 const AccountForm = () => {
+  const { setUser } = useContext(UserContext);
   const [newUser, setNewUser] = useState(false);
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
@@ -87,8 +89,7 @@ const AccountForm = () => {
                 e.preventDefault();
                 const res = await login(e);
                 delayRedirect("/home", res.status);
-                console.log(res.status);
-                console.log(await res.json());
+                setUser(await res.json());
               }}
               aria-label="login-button"
             >

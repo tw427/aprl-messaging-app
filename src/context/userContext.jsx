@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import App from "../App";
+import Router from "../Router";
 export const UserContext = createContext();
 
 const UserContextProvider = () => {
@@ -12,7 +12,7 @@ const UserContextProvider = () => {
         setUser: setUser,
       }}
     >
-      <App />
+      <Router />
     </UserContext.Provider>
   );
 };
