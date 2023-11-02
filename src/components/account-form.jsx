@@ -34,7 +34,7 @@ const AccountForm = () => {
 
   function delayRedirect(to, status) {
     if (status !== 200) {
-      console.log("HELLO");
+      return "Incorrect login!";
     } else {
       navigate(to);
     }

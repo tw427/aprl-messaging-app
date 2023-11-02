@@ -1,18 +1,30 @@
-import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { BrowserRouter } from "react-router-dom";
-import App from "../App";
-import { createUser, login } from "../../utils/userCrud";
+import { Router } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
+import UserContextProvider from "../context/userContext";
+import AppRouter from "../Router";
+import { createMemoryHistory } from "history";
 
 afterAll(() => vi.resetAllMocks());
 
 describe("UI of Login Form component", () => {
   beforeEach(() => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <MemoryRouter>
+        <UserContextProvider>
+          <AppRouter />
+        </UserContextProvider>
+      </MemoryRouter>
     );
   });
 
@@ -54,65 +66,95 @@ describe("UI of Login Form component", () => {
 });
 
 describe("Fetch API", () => {
+  let history = createMemoryHistory();
+
   beforeEach(() => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Router location={history.location} navigator={history}>
+        <UserContextProvider>
+          <AppRouter />
+        </UserContextProvider>
+      </Router>
     );
 
     vi.spyOn(window, "fetch");
+    history.push = vi.fn();
   });
 
-  it("Creating an account successfully sends back the correct API response", async () => {
-    window.fetch.mockResolvedValueOnce({
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-      user: {
-        username: "Bug",
-      },
-      message: "Success! Account created.",
-    });
-
-    const results = await createUser();
-
-    expect(results.user.username).toBe("Bug");
-    expect(window.fetch).toHaveBeenCalledWith(
-      "http://localhost:3001/user/signup",
-      expect.objectContaining({
-        method: "POST",
-        mode: "cors",
-        body: new URLSearchParams(),
-      })
-    );
-    expect(window.fetch).toHaveBeenCalledTimes(1);
+  afterEach(() => {
+    vi.resetAllMocks();
   });
 
-  // Will we need an afterEach to reset mocks for this describe block?
-
-  it("Successful login sends back correct data from our backend API", async () => {
+  it("Creat account success will show success message", () => {
     window.fetch.mockResolvedValueOnce({
-      user: {
-        username: "Bug",
-        password:
-          "$2a$10$vakGt7dsJr4pnDS7D3181OOx5AHEbEvQPENA7WM3/cjSK2NfaUX1K",
-        _id: "653b5e8e4a96c8046bede878",
-        _v: 0,
+      json: () => {
+        return {
+          user: {
+            password:
+              "$2a$10$vakGt7dsJr4pnDS7D3181OOx5AHEbEvQPENA7WM3/cjSK2NfaUX1K",
+            username: "Bug",
+          },
+        };
       },
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      status: 200,
     });
-    const results = await login();
+  });
 
-    expect(results.user.username).toBe("Bug");
-    expect(window.fetch).toHaveBeenCalledTimes(1);
-    expect(window.fetch).toHaveBeenCalledWith(
-      "http://localhost:3001/user/login",
-      expect.objectContaining({
-        method: "POST",
-        mode: "cors",
-        body: new URLSearchParams(),
-      })
+  it("Login success redirects to /home directory", async () => {
+    window.fetch.mockResolvedValueOnce({
+      json: () => {
+        return {
+          user: {
+            password:
+              "$2a$10$vakGt7dsJr4pnDS7D3181OOx5AHEbEvQPENA7WM3/cjSK2NfaUX1K",
+            username: "Bug",
+          },
+        };
+      },
+      status: 200,
+    });
+
+    const username = screen.queryByRole("textbox", { name: "username" });
+    const password = screen.queryByLabelText("password");
+    const loginBtn = screen.queryByRole("link", { name: "login-button" });
+
+    await userEvent.type(username, "Bug");
+    await userEvent.type(password, "testing");
+
+    expect(username.value).toBe("Bug");
+    expect(password.value).toBe("testing");
+
+    expect(loginBtn).toBeInTheDocument();
+    await userEvent.click(loginBtn);
+    expect(history.push).toHaveBeenCalledWith(
+      {
+        hash: "",
+        pathname: "/home",
+        search: "",
+      },
+      undefined,
+      {}
     );
+  });
+
+  it("Login fail will not redirect our user", async () => {
+    window.fetch.mockResolvedValueOnce({
+      json: () => {
+        return {
+          user: {
+            password:
+              "$2a$10$vakGt7dsJr4pnDS7D3181OOx5AHEbEvQPENA7WM3/cjSK2NfaUX1K",
+            username: "Bug",
+          },
+        };
+      },
+      status: 404,
+    });
+
+    const loginBtn = screen.queryByRole("link", { name: "login-button" });
+    expect(loginBtn).toBeInTheDocument();
+    await userEvent.click(loginBtn);
+
+    expect(history.push).not.toHaveBeenCalled();
   });
 });
