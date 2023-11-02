@@ -50,7 +50,11 @@ const AccountForm = () => {
 
   return (
     <>
-      {status.message && <span id="account-form-status">{status.message}</span>}
+      {status.message && (
+        <span id="account-form-status" aria-label="response-status">
+          {status.message}
+        </span>
+      )}
       <label htmlFor="username"></label>
       <input
         type="text"

@@ -85,19 +85,44 @@ describe("Fetch API", () => {
     vi.resetAllMocks();
   });
 
-  it("Creat account success will show success message", () => {
+  it("Create account success will show success message", async () => {
     window.fetch.mockResolvedValueOnce({
       json: () => {
         return {
-          user: {
-            password:
-              "$2a$10$vakGt7dsJr4pnDS7D3181OOx5AHEbEvQPENA7WM3/cjSK2NfaUX1K",
-            username: "Bug",
-          },
+          message: "Success account created.",
         };
       },
       status: 200,
     });
+
+    const createFormBtn = screen.getByRole("link", { name: "sign-up-link" });
+    await userEvent.click(createFormBtn);
+    const createAccount = screen.getByTestId("create-account");
+    expect(createAccount).toBeInTheDocument();
+    await userEvent.click(createAccount);
+    const message = screen.getByLabelText("response-status");
+    expect(message).toHaveTextContent("Success account created.");
+  });
+
+  it("Create account fail will show fail message", async () => {
+    window.fetch.mockResolvedValueOnce({
+      json: () => {
+        return {
+          message: "Something went wrong! Check username and password fields.",
+        };
+      },
+      status: 400,
+    });
+
+    const createFormBtn = screen.getByRole("link", { name: "sign-up-link" });
+    await userEvent.click(createFormBtn);
+    const createAccount = screen.getByTestId("create-account");
+    expect(createAccount).toBeInTheDocument();
+    await userEvent.click(createAccount);
+    const message = screen.getByLabelText("response-status");
+    expect(message).toHaveTextContent(
+      "Something went wrong! Check username and password fields."
+    );
   });
 
   it("Login success redirects to /home directory", async () => {
@@ -148,7 +173,7 @@ describe("Fetch API", () => {
           },
         };
       },
-      status: 404,
+      status: 400,
     });
 
     const loginBtn = screen.queryByRole("link", { name: "login-button" });
