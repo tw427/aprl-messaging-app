@@ -87,3 +87,8 @@
   background-color: #0064ff;
   box-shadow: 0px 0px 4px 2px rgb(184, 184, 184);
 }
+
+#quick-login {
+  width: 0px;
+  color: black;
+}

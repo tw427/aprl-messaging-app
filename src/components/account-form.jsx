@@ -3,7 +3,7 @@ import { UserContext } from "../context/userContext";
 import PropTypes from "prop-types";
 import "../styles/account-form.css";
 import { Link, useNavigate } from "react-router-dom";
-import { createUser, login } from "../../utils/userCrud";
+import { createUser, login, fillUserInfo } from "../../utils/userCrud";
 
 const AccountForm = () => {
   const { setUser } = useContext(UserContext);
@@ -98,6 +98,20 @@ const AccountForm = () => {
               aria-label="login-button"
             >
               Login
+            </Link>
+            <Link
+              id="quick-login"
+              to={"home"}
+              onClick={async (e) => {
+                e.preventDefault();
+                fillUserInfo();
+                const res = await login(e);
+                delayRedirect("/home", res.status);
+                setUser(await res.json());
+              }}
+              aria-label="quick-login"
+            >
+              QL
             </Link>
             <a
               href="/"

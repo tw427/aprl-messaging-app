@@ -28,3 +28,11 @@ export async function login(e) {
 
   return await res;
 }
+
+export function fillUserInfo() {
+  const username = document.getElementById("username");
+  const password = document.getElementById("password");
+
+  username.value = "Bug";
+  password.value = "testing";
+}

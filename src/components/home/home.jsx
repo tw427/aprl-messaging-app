@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import "../styles/home.css";
+import "../../styles/home.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UserContext } from "../context/userContext";
+import { UserContext } from "../../context/userContext";
+import Profile from "./profile";
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -14,11 +15,12 @@ const Home = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        {user.user && (
+        {/* {user.user && (
           <Link to={"/"} onClick={() => console.log(user)}>
             APR3L Messaging App
           </Link>
-        )}
+        )} */}
+        {user.user && <Profile />}
         {!user.user && (
           <Link to={"/"}>ERROR 404 - Please proceed to login.</Link>
         )}
