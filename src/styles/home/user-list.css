@@ -1,0 +1,8 @@
+#user-list {
+  height: 100%;
+  width: 100%;
+  background-color: antiquewhite;
+
+  grid-row: 1 / -1;
+  grid-column: 1 / 2;
+}
