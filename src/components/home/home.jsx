@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { UserContext } from "../../context/userContext";
 import { UserList, ChatWindow, MessageWindow, Profile } from "./modules.js";
-import { storageAvailable } from "../../../utils/sessionStorage";
+// import { storageAvailable } from "../../../utils/sessionStorage";
 // import Settings from "./settings";
 
 const Home = () => {
@@ -12,12 +12,13 @@ const Home = () => {
 
   useEffect(() => {
     console.log(user);
-    if (storageAvailable("sessionStorage")) {
-      console.log("Horray! Session Storage is available.");
-    } else {
-      console.log("Uh oh something went wrong!");
-    }
-  }, []);
+    // Session Storage availability check
+    // if (storageAvailable("sessionStorage")) {
+    //   console.log("Horray! Session Storage is available.");
+    // } else {
+    //   console.log("Uh oh something went wrong!");
+    // }
+  }, [user]);
   return (
     <>
       <motion.div
