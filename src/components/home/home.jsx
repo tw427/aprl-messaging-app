@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import "../../styles/home/home.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { UserContext } from "../../context/userContext";
-import Profile from "./profile";
-import UserList from "./userlist";
-import ChatWindow from "./chat-window";
-import MessageWindow from "./message-window";
+import { UserList, ChatWindow, MessageWindow, Profile } from "./modules";
 // import Settings from "./settings";
 
 const Home = () => {
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
   return (
     <>
       <motion.div
