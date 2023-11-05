@@ -22,7 +22,7 @@ const AccountForm = () => {
       setUser({ id: id, username: username });
       navigate("/home");
     }
-  }, [setUser]);
+  }, [setUser, navigate]);
 
   useEffect(() => {
     function handleStatus(result) {
