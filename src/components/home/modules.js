@@ -3,9 +3,4 @@ import MessageWindow from "./message-window";
 import ChatWindow from "./chat-window";
 import Profile from "./profile";
 
-export default {
-  UserList,
-  MessageWindow,
-  ChatWindow,
-  Profile,
-};
+export { UserList, MessageWindow, ChatWindow, Profile };

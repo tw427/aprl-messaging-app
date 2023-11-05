@@ -3,7 +3,8 @@ import "../../styles/home/home.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { UserContext } from "../../context/userContext";
-import { UserList, ChatWindow, MessageWindow, Profile } from "./modules";
+import { UserList, ChatWindow, MessageWindow, Profile } from "./modules.js";
+import { storageAvailable } from "../../../utils/sessionStorage";
 // import Settings from "./settings";
 
 const Home = () => {
@@ -11,6 +12,11 @@ const Home = () => {
 
   useEffect(() => {
     console.log(user);
+    if (storageAvailable("sessionStorage")) {
+      console.log("Horray! Session Storage is available.");
+    } else {
+      console.log("Uh oh something went wrong!");
+    }
   }, []);
   return (
     <>
@@ -25,7 +31,7 @@ const Home = () => {
             APR3L Messaging App
           </Link>
         )} */}
-        {user.user && (
+        {user && (
           <>
             <Profile />
             <UserList />
@@ -34,9 +40,7 @@ const Home = () => {
             <MessageWindow />
           </>
         )}
-        {!user.user && (
-          <Link to={"/"}>ERROR 404 - Please proceed to login.</Link>
-        )}
+        {!user && <Link to={"/"}>ERROR 404 - Please proceed to login.</Link>}
       </motion.div>
     </>
   );

@@ -1,3 +1,22 @@
+export function populateOnLogin(details) {
+  if (!sessionStorage.getItem("username")) {
+    console.log(details);
+    sessionStorage.setItem("id", details.user._id);
+    sessionStorage.setItem("username", details.user.username);
+  }
+  return;
+}
+
+export function sessionGetUser() {
+  const id = sessionStorage.getItem("id");
+  const username = sessionStorage.getItem("username");
+
+  return {
+    id: id,
+    username: username,
+  };
+}
+
 export function storageAvailable(type) {
   let storage;
   try {

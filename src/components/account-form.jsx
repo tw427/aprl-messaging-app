@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "../styles/account-form.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, login, fillUserInfo } from "../../utils/userCrud";
+import { populateOnLogin, sessionGetUser } from "../../utils/sessionStorage";
 
 const AccountForm = () => {
   const { setUser } = useContext(UserContext);
@@ -14,6 +15,14 @@ const AccountForm = () => {
   AccountForm.propTypes = {
     createUser: PropTypes.func,
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("username")) {
+      const { id, username } = sessionGetUser();
+      setUser({ id: id, username: username });
+      navigate("/home");
+    }
+  }, [setUser]);
 
   useEffect(() => {
     function handleStatus(result) {
@@ -92,8 +101,10 @@ const AccountForm = () => {
               onClick={async (e) => {
                 e.preventDefault();
                 const res = await login(e);
+                const user = await res.json();
                 delayRedirect("/home", res.status);
-                setUser(await res.json());
+                populateOnLogin(user);
+                setUser(user);
               }}
               aria-label="login-button"
             >
@@ -106,8 +117,10 @@ const AccountForm = () => {
                 e.preventDefault();
                 fillUserInfo();
                 const res = await login(e);
+                const user = await res.json();
                 delayRedirect("/home", res.status);
-                setUser(await res.json());
+                populateOnLogin(user);
+                setUser(user);
               }}
               aria-label="quick-login"
             >
