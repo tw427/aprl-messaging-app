@@ -1,33 +1,30 @@
 import "../../styles/home/chat-window.css";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState({});
+  async function getUserMessages() {
+    if (sessionStorage.id) {
+      const res = await fetch(
+        `http://localhost:3001/user/${sessionStorage.id}/messages/`,
+        {
+          method: "GET",
+          mode: "cors",
+        }
+      );
 
-  useEffect(() => {
-    async function getUserMessages() {
-      if (sessionStorage.id) {
-        const res = await fetch(
-          `http://localhost:3001/user/${sessionStorage.id}/messages`,
-          {
-            method: "GET",
-            mode: "cors",
-          }
-        );
-        setMessages(await res.json());
-      }
-      return;
+      const messages = await res.json();
+      console.log(messages);
+      // return await res.json();
     }
-
-    getUserMessages();
-  }, []);
+    return;
+  }
 
   return (
     <>
       <main id="chat-window">
         <button
-          onClick={() => {
-            console.log(messages);
+          onClick={async () => {
+            await getUserMessages();
           }}
         >
           Messages
