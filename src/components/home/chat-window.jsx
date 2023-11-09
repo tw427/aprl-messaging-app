@@ -1,7 +1,9 @@
 import "../../styles/home/chat-window.css";
-// import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const ChatWindow = () => {
+  const [messages, setMessages] = useState([]);
+
   async function getUserMessages() {
     if (sessionStorage.id) {
       const res = await fetch(
@@ -12,9 +14,7 @@ const ChatWindow = () => {
         }
       );
 
-      const messages = await res.json();
-      console.log(messages);
-      // return await res.json();
+      setMessages(await res.json());
     }
     return;
   }
@@ -25,10 +25,17 @@ const ChatWindow = () => {
         <button
           onClick={async () => {
             await getUserMessages();
+            console.log(messages);
           }}
         >
           Messages
         </button>
+        {messages.map((message) => (
+          <p key={message._id}>
+            {message.author.username} | {message.message} | {message.date}{" "}
+            {message.time}
+          </p>
+        ))}
       </main>
     </>
   );

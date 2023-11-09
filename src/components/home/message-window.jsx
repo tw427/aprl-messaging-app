@@ -9,12 +9,7 @@ const MessageWindow = () => {
   function formatTime() {
     const timeSplit = new Date().toLocaleTimeString().split(" ");
     const time = timeSplit[0].substring(0, timeSplit[0].length - 3);
-    return [time, timeSplit[1]];
-  }
-
-  function formatDate() {
-    const dateSplit = new Date().toLocaleDateString().split("/");
-    return dateSplit;
+    return time + " " + timeSplit[1];
   }
 
   async function postMessage(id, e) {
@@ -22,7 +17,7 @@ const MessageWindow = () => {
       e.preventDefault();
     }
 
-    const date = formatDate();
+    const date = new Date().toLocaleDateString();
     const time = formatTime();
 
     const formData = new FormData(document.getElementById("message-form"));
