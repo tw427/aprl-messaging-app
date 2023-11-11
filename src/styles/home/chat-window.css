@@ -1,8 +1,51 @@
 #chat-window {
+  display: grid;
   height: 100%;
   width: 100%;
-  background-color: royalblue;
+  background-color: rgb(255, 255, 255);
 
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+}
+
+.message-container {
+  display: flex;
+  background-color: bisque;
+  margin-bottom: 6px;
+}
+
+.message-bubble {
+  border: 1px solid black;
+  min-width: 300px;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 2px 4px;
+}
+
+.message-author, .message-date-time {
+  margin: 0;
+}
+
+.message-author {
+  font-size: 1.2rem;
+}
+
+.message-text {
+  font-size: 1.2rem;
+  margin: 2px 4px;
+}
+
+.message-date-time {
+  padding-top: 3px;
+  font-size: 15px;
+}
+
+[data-active-user="true"] {
+  margin-left: auto;
+  background-color: rgb(65, 105, 225, 0.8);
+  color: white;
 }

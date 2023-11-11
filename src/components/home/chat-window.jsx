@@ -14,13 +14,13 @@ const ChatWindow = () => {
   return (
     <>
       <main id="chat-window">
-        <button
+        {/* <button
           onClick={() => {
             console.log(messages);
           }}
         >
           Messages
-        </button>
+        </button> */}
         {messages.map((message) =>
           messageFormat(
             message.author.username,
