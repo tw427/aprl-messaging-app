@@ -1,41 +1,35 @@
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../context/userContext";
 import "../../styles/home/chat-window.css";
-import { useState } from "react";
+import { updateMessages } from "../../../utils/messageCrud";
+import { messageFormat } from "../../../utils/messageUI";
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState([]);
+  const { messages, setMessages } = useContext(UserContext);
 
-  async function getUserMessages() {
-    if (sessionStorage.id) {
-      const res = await fetch(
-        `http://localhost:3001/user/${sessionStorage.id}/messages/`,
-        {
-          method: "GET",
-          mode: "cors",
-        }
-      );
-
-      setMessages(await res.json());
-    }
-    return;
-  }
+  useEffect(() => {
+    updateMessages(setMessages);
+  }, []);
 
   return (
     <>
       <main id="chat-window">
         <button
-          onClick={async () => {
-            await getUserMessages();
+          onClick={() => {
             console.log(messages);
           }}
         >
           Messages
         </button>
-        {messages.map((message) => (
-          <p key={message._id}>
-            {message.author.username} | {message.message} | {message.date}{" "}
-            {message.time}
-          </p>
-        ))}
+        {messages.map((message) =>
+          messageFormat(
+            message.author.username,
+            message.message,
+            message._id,
+            message.date,
+            message.time
+          )
+        )}
       </main>
     </>
   );

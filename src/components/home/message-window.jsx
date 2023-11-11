@@ -1,6 +1,11 @@
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import "../../styles/home/message-window.css";
+import { updateMessages } from "../../../utils/messageCrud";
 
 const MessageWindow = () => {
+  const { setMessages } = useContext(UserContext);
+
   function clearMessageInput() {
     const message = document.getElementById("message");
     message.value = "";
@@ -45,6 +50,7 @@ const MessageWindow = () => {
             if (sessionStorage.id) {
               postMessage(sessionStorage.id, e);
               clearMessageInput();
+              updateMessages(setMessages);
             } else {
               return;
             }

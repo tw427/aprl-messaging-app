@@ -1,19 +1,11 @@
-import { useContext, useEffect } from "react";
 import "../../styles/home/home.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UserContext } from "../../context/userContext";
 import { UserList, ChatWindow, MessageWindow, Profile } from "./modules.js";
 // import { storageAvailable } from "../../../utils/sessionStorage";
 // import Settings from "./settings";
 
 const Home = () => {
-  const { user } = useContext(UserContext);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <>
       <motion.div
@@ -22,7 +14,7 @@ const Home = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        {user && (
+        {sessionStorage.username && (
           <>
             <Profile />
             <UserList />
@@ -31,7 +23,9 @@ const Home = () => {
             <MessageWindow />
           </>
         )}
-        {!user && <Link to={"/"}>ERROR 404 - Please proceed to login.</Link>}
+        {!sessionStorage.username && (
+          <Link to={"/"}>ERROR 404 - Please proceed to login.</Link>
+        )}
       </motion.div>
     </>
   );
