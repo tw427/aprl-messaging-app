@@ -1,11 +1,28 @@
 #chat-window {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   background-color: rgb(255, 255, 255);
 
   grid-row: 2 / 3;
   grid-column: 2 / 3;
+
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#chat-window::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#chat-window::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+#chat-window::-webkit-scrollbar-thumb {
+  background-color: rgb(201, 201, 201);
+  outline: 1px solid rgb(156, 177, 199);
 }
 
 .message-container {
@@ -16,7 +33,9 @@
 
 .message-bubble {
   border: 1px solid black;
-  min-width: 300px;
+  min-width: 333px;
+  max-width: 333px;
+  word-break: break-all;
 }
 
 .message-header {
