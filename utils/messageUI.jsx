@@ -1,8 +1,25 @@
-export function messageFormat(username, message, messageId, date, time) {
+import { deleteMessage } from "./messageCrud";
+
+export function messageFormat(
+  username,
+  message,
+  messageId,
+  date,
+  time,
+  setMessages
+) {
   const today = new Date().toLocaleDateString();
 
   return (
     <div key={messageId} className="message-container">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          deleteMessage(setMessages, messageId);
+        }}
+      >
+        Delete
+      </button>
       <div
         className="message-bubble"
         data-active-user={`${

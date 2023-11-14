@@ -27,7 +27,8 @@ const ChatWindow = () => {
             message.message,
             message._id,
             message.date,
-            message.time
+            message.time,
+            setMessages
           )
         )}
       </main>
