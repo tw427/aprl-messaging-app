@@ -33,8 +33,9 @@
 
 .message-bubble {
   border: 1px solid black;
-  min-width: 333px;
-  max-width: 333px;
+  min-width: 400px;
+  max-width: 400px;
+  min-height: 120px;
   word-break: break-all;
 }
 
@@ -42,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin: 2px 4px;
+  margin: 3px 4px 6px 4px;
 }
 
 .message-author, .message-date-time {

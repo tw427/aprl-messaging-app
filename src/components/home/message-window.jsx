@@ -57,7 +57,7 @@ const MessageWindow = () => {
           }}
         >
           <label htmlFor="message">
-            <input type="text" id="message" name="message" />
+            <textarea type="text" id="message" name="message" />
           </label>
           <button type="submit">Send</button>
         </form>
