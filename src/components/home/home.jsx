@@ -1,11 +1,21 @@
+import { useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import "../../styles/home/home.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { UserList, ChatWindow, MessageWindow, Profile } from "./modules.js";
+import {
+  UserList,
+  ChatWindow,
+  MessageWindow,
+  Profile,
+  GroupList,
+} from "./modules.js";
 // import { storageAvailable } from "../../../utils/sessionStorage";
 // import Settings from "./settings";
 
 const Home = () => {
+  const { showUserList, setShowUserList } = useContext(UserContext);
+
   return (
     <>
       <motion.div
@@ -17,7 +27,17 @@ const Home = () => {
         {sessionStorage.username && (
           <>
             <Profile />
-            <UserList />
+            {showUserList ? (
+              <UserList
+                showUserList={showUserList}
+                setShowUserList={setShowUserList}
+              />
+            ) : (
+              <GroupList
+                showUserList={showUserList}
+                setShowUserList={setShowUserList}
+              />
+            )}
             <ChatWindow />
             {/* <Settings /> */}
             <MessageWindow />

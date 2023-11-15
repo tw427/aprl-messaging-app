@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import "../styles/account-form.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, login, fillUserInfo } from "../../utils/userCrud";
-import { populateOnLogin, sessionGetUser } from "../../utils/sessionStorage";
+import { populateOnLogin } from "../../utils/sessionStorage";
+import { useLoginNavigate } from "../../utils/accountForm";
 
 const AccountForm = () => {
   const { setUser } = useContext(UserContext);
@@ -16,13 +17,7 @@ const AccountForm = () => {
     createUser: PropTypes.func,
   };
 
-  useEffect(() => {
-    if (sessionStorage.getItem("username")) {
-      const { id, username } = sessionGetUser();
-      setUser({ id: id, username: username });
-      navigate("/home");
-    }
-  }, [setUser, navigate]);
+  useLoginNavigate(setUser);
 
   useEffect(() => {
     function handleStatus(result) {
