@@ -3,18 +3,13 @@ import { UserContext } from "../../context/userContext";
 import "../../styles/home/home.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  UserList,
-  ChatWindow,
-  MessageWindow,
-  Profile,
-  GroupList,
-} from "./modules.js";
+import { ChatWindow, MessageWindow, Profile } from "./modules.js";
+import { leftViewController } from "../componentTemplates/leftViewController";
 // import { storageAvailable } from "../../../utils/sessionStorage";
 // import Settings from "./settings";
 
 const Home = () => {
-  const { showUserList, setShowUserList } = useContext(UserContext);
+  const { leftView, setLeftView } = useContext(UserContext);
 
   return (
     <>
@@ -27,17 +22,7 @@ const Home = () => {
         {sessionStorage.username && (
           <>
             <Profile />
-            {showUserList ? (
-              <UserList
-                showUserList={showUserList}
-                setShowUserList={setShowUserList}
-              />
-            ) : (
-              <GroupList
-                showUserList={showUserList}
-                setShowUserList={setShowUserList}
-              />
-            )}
+            {leftViewController(leftView, setLeftView)}
             <ChatWindow />
             {/* <Settings /> */}
             <MessageWindow />

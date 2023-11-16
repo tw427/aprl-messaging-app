@@ -5,7 +5,9 @@ export const UserContext = createContext();
 const UserContextProvider = () => {
   const [user, setUser] = useState({});
   const [messages, setMessages] = useState([]);
-  const [showUserList, setShowUserList] = useState(true);
+  const [leftView, setLeftView] = useState("UserList");
+  const [groupList, setGroupList] = useState([]);
+  const [currGroup, setCurrGroup] = useState({});
 
   return (
     <UserContext.Provider
@@ -14,8 +16,12 @@ const UserContextProvider = () => {
         setUser: setUser,
         messages: messages,
         setMessages: setMessages,
-        showUserList: showUserList,
-        setShowUserList: setShowUserList,
+        leftView: leftView,
+        setLeftView: setLeftView,
+        groupList: groupList,
+        setGroupList: setGroupList,
+        currGroup: currGroup,
+        setCurrGroup: setCurrGroup,
       }}
     >
       <Router />
