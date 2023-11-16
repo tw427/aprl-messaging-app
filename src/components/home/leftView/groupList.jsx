@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../../context/userContext";
 import { PropTypes } from "prop-types";
-import { useGroupData } from "../../hooks/groupListHooks";
+import { useGroupData } from "../../../hooks/groupListHooks";
 
 const GroupList = (props) => {
   const { setLeftView } = props;
@@ -24,7 +24,9 @@ const GroupList = (props) => {
         <button onClick={async () => console.log(await groupList)}>
           Groups
         </button>
-        <button>Create Group</button>
+        <button onClick={() => setLeftView("GroupListForm")}>
+          Create Group
+        </button>
       </div>
     </>
   );

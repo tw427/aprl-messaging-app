@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../../styles/home/profile.css";
-import { UserContext } from "../../context/userContext";
+import "../../../styles/home/profile.css";
+import { UserContext } from "../../../context/userContext";
 
 const Profile = () => {
   const { setUser } = useContext(UserContext);

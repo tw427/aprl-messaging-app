@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import "../../styles/home/user-list.css";
+import "../../../styles/home/user-list.css";
 
 const UserList = (props) => {
   const { setLeftView } = props;

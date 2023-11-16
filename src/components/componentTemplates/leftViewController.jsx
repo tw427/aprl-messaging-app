@@ -1,4 +1,4 @@
-import { UserList, GroupList } from "../home/modules";
+import { UserList, GroupList, GroupListForm } from "../home/modules";
 
 export function leftViewController(state, setState) {
   let component = {};
@@ -9,6 +9,9 @@ export function leftViewController(state, setState) {
       break;
     case "GroupList":
       component = <GroupList setLeftView={setState}></GroupList>;
+      break;
+    case "GroupListForm":
+      component = <GroupListForm setLeftView={setState}></GroupListForm>;
       break;
   }
 

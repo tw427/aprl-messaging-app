@@ -36,9 +36,7 @@ const MessageWindow = () => {
       }
     );
 
-    console.log(await res.json());
-
-    // return await res;
+    return await res;
   }
 
   return (
