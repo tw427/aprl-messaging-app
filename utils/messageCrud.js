@@ -1,5 +1,7 @@
 export async function updateMessages(setMessages, currGroup) {
-  if (!currGroup === undefined) {
+  if (currGroup === undefined) {
+    return;
+  } else if (currGroup._id) {
     const res = await fetch(
       `http://localhost:3001/group/${currGroup._id}/message/history`,
       {
@@ -7,7 +9,6 @@ export async function updateMessages(setMessages, currGroup) {
         mode: "cors",
       }
     );
-
     setMessages(await res.json());
   }
 }

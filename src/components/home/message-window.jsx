@@ -4,7 +4,7 @@ import "../../styles/home/message-window.css";
 import { updateMessages } from "../../../utils/messageCrud";
 
 const MessageWindow = () => {
-  const { setMessages } = useContext(UserContext);
+  const { setMessages, currGroup } = useContext(UserContext);
 
   function clearMessageInput() {
     const message = document.getElementById("message");
@@ -28,7 +28,7 @@ const MessageWindow = () => {
     const formData = new FormData(document.getElementById("message-form"));
     const data = new URLSearchParams(formData);
     const res = await fetch(
-      `http://localhost:3001/user/message/create-message/${id}/${date}/${time}`,
+      `http://localhost:3001/user/message/create-message/${currGroup._id}/${id}/${date}/${time}`,
       {
         method: "POST",
         mode: "cors",
