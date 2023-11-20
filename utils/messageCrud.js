@@ -1,13 +1,15 @@
-export async function updateMessages(setMessages) {
-  const res = await fetch(
-    `http://localhost:3001/user/${sessionStorage.id}/messages/`,
-    {
-      method: "GET",
-      mode: "cors",
-    }
-  );
+export async function updateMessages(setMessages, currGroup) {
+  if (!currGroup === undefined) {
+    const res = await fetch(
+      `http://localhost:3001/group/${currGroup._id}/message/history`,
+      {
+        method: "GET",
+        mode: "cors",
+      }
+    );
 
-  setMessages(await res.json());
+    setMessages(await res.json());
+  }
 }
 
 export async function deleteMessage(setMessages, messageId) {

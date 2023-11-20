@@ -5,11 +5,20 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChatWindow, MessageWindow, Profile } from "./modules.js";
 import { leftViewController } from "../componentTemplates/leftViewController";
+import { useGroupData } from "../../hooks/groupListHooks";
 // import { storageAvailable } from "../../../utils/sessionStorage";
 // import Settings from "./settings";
 
 const Home = () => {
-  const { leftView, setLeftView } = useContext(UserContext);
+  const { leftView, setLeftView, setCurrGroup, setGroupList } =
+    useContext(UserContext);
+
+  useGroupData()
+    .then((data) => {
+      setGroupList(data);
+      setCurrGroup(data[0]);
+    })
+    .catch((err) => console.log(err));
 
   return (
     <>
