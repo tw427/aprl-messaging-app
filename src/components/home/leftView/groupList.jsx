@@ -2,15 +2,23 @@ import { useContext } from "react";
 import { UserContext } from "../../../context/userContext";
 import { PropTypes } from "prop-types";
 import "../../../styles/leftView/group-list.css";
+import { useGroupData } from "../../../hooks/groupListHooks";
 
 const GroupList = (props) => {
   const { setLeftView } = props;
-  const { groupList, currGroup } = useContext(UserContext);
+  const { groupList, currGroup, setGroupList, setCurrGroup } =
+    useContext(UserContext);
 
   GroupList.propTypes = {
     leftView: PropTypes.string,
     setLeftView: PropTypes.func,
   };
+
+  useGroupData()
+    .then((data) => {
+      setGroupList(data);
+    })
+    .catch((err) => console.log(err));
 
   return (
     <>
@@ -29,7 +37,10 @@ const GroupList = (props) => {
                 <li
                   key={group._id}
                   data-id={group._id}
-                  onClick={(e) => console.log(e.currentTarget.dataset.id)}
+                  onClick={(e) => {
+                    setCurrGroup(group);
+                    console.log(e.currentTarget.dataset.id);
+                  }}
                 >
                   {group.name}
                 </li>

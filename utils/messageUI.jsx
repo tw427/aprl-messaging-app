@@ -6,7 +6,8 @@ export function messageFormat(
   messageId,
   date,
   time,
-  setMessages
+  setMessages,
+  currGroup
 ) {
   const today = new Date().toLocaleDateString();
 
@@ -15,7 +16,7 @@ export function messageFormat(
       <button
         onClick={(e) => {
           e.preventDefault();
-          deleteMessage(setMessages, messageId);
+          deleteMessage(setMessages, currGroup, messageId);
         }}
       >
         Delete

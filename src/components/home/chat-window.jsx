@@ -36,7 +36,8 @@ const ChatWindow = () => {
               message._id,
               message.date,
               message.time,
-              setMessages
+              setMessages,
+              currGroup
             )
           )}
         <div ref={chatBottom}></div>

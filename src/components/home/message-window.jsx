@@ -17,7 +17,7 @@ const MessageWindow = () => {
     return time + " " + timeSplit[1];
   }
 
-  async function postMessage(id, e) {
+  async function postMessage(id, e, updateMessages) {
     if (e) {
       e.preventDefault();
     }
@@ -36,6 +36,10 @@ const MessageWindow = () => {
       }
     );
 
+    if (updateMessages) {
+      updateMessages(setMessages, currGroup);
+    }
+
     return await res;
   }
 
@@ -46,9 +50,8 @@ const MessageWindow = () => {
           id="message-form"
           onSubmit={(e) => {
             if (sessionStorage.id) {
-              postMessage(sessionStorage.id, e);
+              postMessage(sessionStorage.id, e, updateMessages);
               clearMessageInput();
-              updateMessages(setMessages);
             } else {
               return;
             }
