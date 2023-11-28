@@ -10,18 +10,28 @@ import { useGroupData } from "../../hooks/groupListHooks";
 // import Settings from "./settings";
 
 const Home = () => {
-  const { leftView, setLeftView, setGroupList, groupList, setCurrGroup } =
-    useContext(UserContext);
+  const {
+    leftView,
+    setLeftView,
+    setGroupList,
+    groupList,
+    currGroup,
+    setCurrGroup,
+  } = useContext(UserContext);
 
   useGroupData()
     .then((data) => {
       setGroupList(data);
+      if (data[0] && currGroup._id === undefined) {
+        setCurrGroup(data[0]);
+      }
     })
     .catch((err) => console.log(err));
 
   useEffect(() => {
-    setCurrGroup(groupList[0]);
-  }, [groupList, setCurrGroup]);
+    console.log("D");
+    console.log(currGroup);
+  }, []);
 
   return (
     <>
