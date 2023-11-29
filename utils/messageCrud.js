@@ -2,7 +2,6 @@ export async function updateMessages(setMessages, currGroup) {
   if (currGroup === undefined) {
     return;
   } else if (currGroup._id) {
-    console.log("heyo");
     const res = await fetch(
       `http://localhost:3001/group/${currGroup._id}/message/history`,
       {

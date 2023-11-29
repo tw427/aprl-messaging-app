@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import "../../styles/home/home.css";
 import { Link } from "react-router-dom";
@@ -10,14 +10,8 @@ import { useGroupData } from "../../hooks/groupListHooks";
 // import Settings from "./settings";
 
 const Home = () => {
-  const {
-    leftView,
-    setLeftView,
-    setGroupList,
-    groupList,
-    currGroup,
-    setCurrGroup,
-  } = useContext(UserContext);
+  const { leftView, setLeftView, setGroupList, currGroup, setCurrGroup } =
+    useContext(UserContext);
 
   useGroupData()
     .then((data) => {
@@ -27,11 +21,6 @@ const Home = () => {
       }
     })
     .catch((err) => console.log(err));
-
-  useEffect(() => {
-    console.log("D");
-    console.log(currGroup);
-  }, []);
 
   return (
     <>

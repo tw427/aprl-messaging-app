@@ -7,6 +7,7 @@ const UserContextProvider = () => {
   const [messages, setMessages] = useState([]);
   const [leftView, setLeftView] = useState("UserList");
   const [groupList, setGroupList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [currGroup, setCurrGroup] = useState({});
 
   return (
@@ -22,6 +23,8 @@ const UserContextProvider = () => {
         setGroupList: setGroupList,
         currGroup: currGroup,
         setCurrGroup: setCurrGroup,
+        userList: userList,
+        setUserList: setUserList,
       }}
     >
       <Router />

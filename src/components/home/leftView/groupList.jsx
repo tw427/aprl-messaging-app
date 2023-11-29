@@ -22,7 +22,7 @@ const GroupList = (props) => {
 
   return (
     <>
-      <div id="group-list">
+      <section id="group-list">
         <button onClick={() => setLeftView("UserList")}>User List</button>
         <button onClick={() => console.log(groupList, currGroup)}>
           Groups
@@ -36,10 +36,10 @@ const GroupList = (props) => {
               return (
                 <li
                   key={group._id}
-                  data-id={group._id}
+                  data-groupid={group._id}
                   onClick={(e) => {
                     setCurrGroup(group);
-                    console.log(e.currentTarget.dataset.id);
+                    console.log(e.currentTarget.dataset.group);
                   }}
                 >
                   {group.name}
@@ -47,7 +47,7 @@ const GroupList = (props) => {
               );
             })}
         </ul>
-      </div>
+      </section>
     </>
   );
 };
