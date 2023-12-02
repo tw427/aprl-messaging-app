@@ -1,4 +1,4 @@
-import { deleteMessage } from "./messageCrud";
+import { deleteMessage, findMessage } from "./messageCrud";
 
 export function messageFormat(
   username,
@@ -16,7 +16,7 @@ export function messageFormat(
       <button
         onClick={(e) => {
           e.preventDefault();
-          deleteMessage(setMessages, currGroup, messageId);
+          deleteMessage(setMessages, currGroup, messageId, currGroup._id);
         }}
       >
         Delete

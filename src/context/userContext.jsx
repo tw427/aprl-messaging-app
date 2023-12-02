@@ -8,7 +8,7 @@ const UserContextProvider = () => {
   const [leftView, setLeftView] = useState("UserList");
   const [groupList, setGroupList] = useState([]);
   const [userList, setUserList] = useState([]);
-  const [currGroup, setCurrGroup] = useState({});
+  const [currGroup, setcurrGroup] = useState({});
 
   return (
     <UserContext.Provider
@@ -22,7 +22,7 @@ const UserContextProvider = () => {
         groupList: groupList,
         setGroupList: setGroupList,
         currGroup: currGroup,
-        setCurrGroup: setCurrGroup,
+        setcurrGroup: setcurrGroup,
         userList: userList,
         setUserList: setUserList,
       }}

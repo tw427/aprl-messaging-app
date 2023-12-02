@@ -6,7 +6,7 @@ import { useGroupData } from "../../../hooks/groupListHooks";
 
 const GroupList = (props) => {
   const { setLeftView } = props;
-  const { groupList, currGroup, setGroupList, setCurrGroup } =
+  const { groupList, currGroup, setGroupList, setcurrGroup } =
     useContext(UserContext);
 
   GroupList.propTypes = {
@@ -38,8 +38,8 @@ const GroupList = (props) => {
                   key={group._id}
                   data-groupid={group._id}
                   onClick={(e) => {
-                    setCurrGroup(group);
-                    console.log(e.currentTarget.dataset.group);
+                    setcurrGroup(group);
+                    console.log(e.currentTarget.dataset.groupid, group);
                   }}
                 >
                   {group.name}

@@ -28,7 +28,7 @@ const MessageWindow = () => {
     const formData = new FormData(document.getElementById("message-form"));
     const data = new URLSearchParams(formData);
     const res = await fetch(
-      `http://localhost:3001/user/message/create-message/${currGroup._id}/${id}/${date}/${time}`,
+      `http://localhost:3001/message/create-message/${currGroup._id}/${id}/${date}/${time}`,
       {
         method: "POST",
         mode: "cors",

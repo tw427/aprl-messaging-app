@@ -13,11 +13,19 @@ export async function updateMessages(setMessages, currGroup) {
   }
 }
 
-export async function deleteMessage(setMessages, currGroup, messageId) {
-  await fetch(`http://localhost:3001/user/message/delete/${messageId}/`, {
-    method: "POST",
-    mode: "cors",
-  });
-
+export async function deleteMessage(
+  setMessages,
+  currGroup,
+  messageId,
+  groupId
+) {
+  const res = await fetch(
+    `http://localhost:3001/message/delete/${groupId}/${messageId}/`,
+    {
+      method: "POST",
+      mode: "cors",
+    }
+  );
+  console.log(await res.json());
   updateMessages(setMessages, currGroup);
 }

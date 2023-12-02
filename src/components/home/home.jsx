@@ -10,14 +10,14 @@ import { useGroupData } from "../../hooks/groupListHooks";
 // import Settings from "./settings";
 
 const Home = () => {
-  const { leftView, setLeftView, setGroupList, currGroup, setCurrGroup } =
+  const { leftView, setLeftView, setGroupList, currGroup, setcurrGroup } =
     useContext(UserContext);
 
   useGroupData()
     .then((data) => {
       setGroupList(data);
       if (data[0] && currGroup._id === undefined) {
-        setCurrGroup(data[0]);
+        setcurrGroup(data[0]);
       }
     })
     .catch((err) => console.log(err));

@@ -5,7 +5,11 @@ import { updateMessages } from "../../../utils/messageCrud";
 import { messageFormat } from "../../../utils/messageUI";
 
 const ChatWindow = () => {
-  const { messages, setMessages, currGroup } = useContext(UserContext);
+  const {
+    messages,
+    setMessages,
+    currGroup: currGroup,
+  } = useContext(UserContext);
 
   const chatBottom = useRef(null);
 
